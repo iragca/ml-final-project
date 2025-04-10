@@ -1,9 +1,6 @@
 import time
-from io import StringIO
 from itertools import count
 
-import duckdb
-import pandas as pd
 from loguru import logger
 from playwright.sync_api import Playwright, sync_playwright
 from tqdm import tqdm
@@ -50,7 +47,7 @@ class CSC(BaseScraper):
         def scrape_page():
             page.wait_for_load_state("domcontentloaded")
 
-            save(StringIO(page.content()))
+            save(page)
 
             next_button = page.locator("a.paginate_button.next")
 

@@ -1,4 +1,6 @@
+import re
 import time
+from io import StringIO
 
 import duckdb
 import pandas as pd
@@ -34,14 +36,30 @@ class BaseScraper:
     def __repr__(self):
         return f"<{self.NAME}Scraper({self.url=})>"
 
-    def save_to_csv(self, html_content: str, filename: str):
+    def save_to_csv(self, page):
         """Save the DataFrame to a CSV file.
         Args:
             df (pd.DataFrame): DataFrame to save.
             filename (str): Filename for the CSV file.
         """
-        data = pd.read_html(html_content)[0]
+        data = pd.read_html(StringIO(page.content()))[0]
         logger.info(f"Retrieved data's shape {data.shape}")
+
+        buttons = page.locator("button").all()
+
+        # Regex to match buttons with 'id_' followed by dynamic jobId
+        pattern = re.compile(
+            r"^info_\d+$"
+        )  # You can adjust the pattern to suit your jobId format
+
+        # Iterate over all buttons and check their 'id' attribute using regex
+        infoIds = []
+        for button in buttons:
+            button_id = button.get_attribute("id")
+            if button_id and pattern.match(button_id):
+                infoIds.append(button_id[5:])
+
+        data["Details"] = infoIds
 
         # Convert all columns to string type
         # This is to avoid issues with CSV writing
@@ -58,14 +76,31 @@ class BaseScraper:
             csv = pd.concat([csv, data], ignore_index=True)
             csv.to_csv(FILENAME, index=False)
 
-    def save_to_duckdb(self, html_content: str):
+    def save_to_duckdb(self, page):
         """Save the DataFrame to a DuckDB file.
         Args:
             df (pd.DataFrame): DataFrame to save.
             filename (str): Filename for the DuckDB file.
         """
-        data = pd.read_html(html_content)[0]
+        data = pd.read_html(StringIO(page.content()))[0]
         logger.info(f"Retrieved data's shape {data.shape}")
+
+        buttons = page.locator("button").all()
+
+        # Regex to match buttons with 'id_' followed by dynamic jobId
+        pattern = re.compile(
+            r"^info_\d+$"
+        )  # You can adjust the pattern to suit your jobId format
+
+        # Iterate over all buttons and check their 'id' attribute using regex
+        infoIds = []
+        for button in buttons:
+            button_id = button.get_attribute("id")
+            if button_id and pattern.match(button_id):
+                infoIds.append(button_id[5:])
+
+        data["Action"] = infoIds
+        print(data)
 
         # Convert all columns to string type
         # This is to avoid issues with CSV writing
