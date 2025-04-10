@@ -4,7 +4,7 @@ import typer
 from loguru import logger
 from tqdm import tqdm
 
-from ml_final_project.config import RAW_DATA_DIR
+from ml_final_project.config import RAW_DATA_DIR, REPORTS_DIR
 from ml_final_project.scrapers.CSC import CSC
 
 app = typer.Typer()
@@ -17,6 +17,12 @@ def CSCJobBoard(
     use_duckdb: bool = True,  # Save to DuckDB instead of CSV
 ):
     try:
+        logger.add(
+            str(REPORTS_DIR / "CSC-scrape.log"),
+            rotation="10 MB",
+            retention="10 days",
+            level="INFO",
+        )
         scraper = CSC()
         scraper.start_scrape(num_pages, headless, use_duckdb)
     except KeyboardInterrupt:
