@@ -45,7 +45,7 @@ class CSC(BaseScraper):
         page.select_option("select[name='jobs_length']", "100")
         time.sleep(10)
 
-        random_numbers = np.random.standard_gamma(a=15, size=15000)
+        random_numbers = np.random.standard_gamma(10, 15000) / 2
 
         def scrape_page():
             page.wait_for_load_state("domcontentloaded")
