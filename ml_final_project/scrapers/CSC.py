@@ -1,6 +1,7 @@
 import time
 from itertools import count
 
+import numpy as np
 from loguru import logger
 from playwright.sync_api import Playwright, sync_playwright
 from tqdm import tqdm
@@ -44,6 +45,8 @@ class CSC(BaseScraper):
         page.select_option("select[name='jobs_length']", "100")
         time.sleep(10)
 
+        random_numbers = np.random.standard_gamma(a=15, size=15000)
+
         def scrape_page():
             page.wait_for_load_state("domcontentloaded")
 
@@ -60,7 +63,7 @@ class CSC(BaseScraper):
 
             next_button.click()
             logger.info(f"Scraped page {next(self.COUNTER)}")
-            time.sleep(5)
+            time.sleep(np.random.choice(random_numbers))
 
         if num_pages == -1:
             while True:
