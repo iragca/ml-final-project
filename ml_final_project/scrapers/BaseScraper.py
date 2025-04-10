@@ -100,7 +100,6 @@ class BaseScraper:
                 infoIds.append(button_id[5:])
 
         data["Action"] = infoIds
-        print(data)
 
         # Convert all columns to string type
         # This is to avoid issues with CSV writing
