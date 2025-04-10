@@ -1,10 +1,26 @@
-# ml-final-project
+<h1 align="center"> ml-final-project </h1>
 
 <a target="_blank" href="https://cookiecutter-data-science.drivendata.org/">
     <img src="https://img.shields.io/badge/CCDS-Project%20template-328F97?logo=cookiecutter" />
 </a>
 
 Final Project for DS322 Machine Learning
+
+## Setup before Scraping
+
+1. `pip install uv`
+2. `uv sync`
+
+## Scraping
+
+- https://csc.gov.ph/career/
+
+Start Scraping:
+
+```bash
+uv run ml_final_project/scrape.py
+```
+
 
 ## Project Organization
 
