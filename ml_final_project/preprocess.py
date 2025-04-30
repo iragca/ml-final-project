@@ -35,7 +35,7 @@ if __name__ == "__main__":
                 .alias("Closing Date"),
                 pl.col("Action").cast(pl.Int32).alias("Action"),
             ]
-        )
+        ).unique(subset=["Action"])
 
         logger.info(f"Converted data sample:\n{formatted_data.head(2)}")
 
