@@ -1,11 +1,7 @@
-from pathlib import Path
-
 import typer
-from loguru import logger
-from tqdm import tqdm
 
-from ml_final_project.config import RAW_DATA_DIR, REPORTS_DIR
-from ml_final_project.scrapers.CSC import CSC
+from ml_final_project.config import REPORTS_DIR, logger
+from ml_final_project.scrapers import CSC
 
 app = typer.Typer()
 
