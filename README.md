@@ -6,7 +6,7 @@
 
 Final Project for DS322 Machine Learning
 
-## Setup before Scraping
+## Developer Setup
 
 1. `pip install uv`
 2. `uv sync`
