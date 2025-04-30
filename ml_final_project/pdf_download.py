@@ -28,7 +28,7 @@ def main():
             / "civilservicecommission.duckdb"
         )
         logger.info(f"Connecting to DuckDB database at {dbPath}.")
-        db = duckdb.connect(dbPath)
+        db = duckdb.connect(dbPath, read_only=True)
 
         pdf_ids = db.sql("SELECT action FROM civilservicecommission").pl()
         logger.info(
