@@ -29,7 +29,7 @@ def main():
         logger.info(f"Connecting to DuckDB database at {dbPath}.")
         db = duckdb.connect(dbPath, read_only=True)
 
-        pdf_ids = db.sql("SELECT action FROM civilservicecommission").pl()
+        pdf_ids = db.sql("SELECT action FROM civilservicecommission").pl().unique()
         logger.info(
             f"Found {pdf_ids.shape[0]} PDF IDs to download from the database."
         )
