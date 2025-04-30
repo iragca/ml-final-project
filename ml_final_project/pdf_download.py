@@ -1,12 +1,11 @@
 import duckdb
-import requests
 import typer
 from loguru import logger
 from tqdm import tqdm
 import time
 
 from ml_final_project.config import RAW_DATA_DIR, REPORTS_DIR
-from playwright.sync_api import Playwright, sync_playwright
+from playwright.sync_api import sync_playwright
 
 app = typer.Typer()
 
