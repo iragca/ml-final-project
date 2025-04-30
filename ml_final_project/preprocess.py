@@ -38,6 +38,9 @@ if __name__ == "__main__":
         ).unique(subset=["Action"])
 
         logger.info(f"Converted data sample:\n{formatted_data.head(2)}")
+        logger.info(
+            f"Loaded {formatted_data.shape[0]} rows and {formatted_data.shape[1]} columns from the database."
+        )
 
         # Save the formatted data to a CSV file
         formatted_data.write_csv(
