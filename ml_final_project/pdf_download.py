@@ -14,7 +14,7 @@ app = typer.Typer()
 def main():
     try:
         logger.add(
-            str(REPORTS_DIR / "CSC-PDF-download.log"),
+            str(REPORTS_DIR / "logs" / "CSC-PDF-download.log"),
             rotation="10 MB",
             retention="10 days",
             level="INFO",
@@ -52,6 +52,7 @@ def main():
                     url = f"https://csc.gov.ph/career/job/{pdf_id}"
 
                     page.goto(url)
+                    page.wait_for_load_state("networkidle")
 
                     # Use fetch inside the browser context (inherits cookies/auth!)
                     pdf_data = page.evaluate(
@@ -69,7 +70,7 @@ def main():
                         f.write(bytes(pdf_data))
 
                     logger.info(f"Downloaded {pdf_id} to {pdf_path}.")
-                    time.sleep(2)
+                    # time.sleep(2)
 
                 else:
                     logger.info(
