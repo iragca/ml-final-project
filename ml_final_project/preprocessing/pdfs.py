@@ -54,9 +54,20 @@ CREATE TABLE IF NOT EXISTS civilservicecommission_pdfs (
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     """
 
-    logger.info("Processing and inserting data into the database.")
-    pdf_files = [f for f in pdfsPath.iterdir() if f.suffix == ".pdf"]
+    already_inserted = db.execute(
+        "SELECT jobId FROM civilservicecommission_pdfs"
+    ).fetchnumpy()["jobId"]
 
+    logger.info(
+        f"{len(already_inserted)} existing records. Identifying new PDF files to process..."
+    )
+    pdf_files = [
+        f
+        for f in pdfsPath.iterdir()
+        if (f.suffix == ".pdf") and (int(f.stem) not in already_inserted)
+    ]
+
+    logger.info("Processing and inserting data into the database.")
     parser = PDFParser()
     counter = count()
 
