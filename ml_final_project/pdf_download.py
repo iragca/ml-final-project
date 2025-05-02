@@ -37,7 +37,7 @@ def main():
         existing_pdfs = PDF_SAVE_PATH.iterdir()
         existing_pdfs = set([pdf.stem for pdf in existing_pdfs])
 
-        logger.info(f"{len(pdf_ids)} PDF IDs found in the database. Identifying new ones to download...")
+        logger.info(f"{len(pdf_ids)} PDF IDs found in the database. {len(existing_pdfs)} downloaded PDFs. Identifying new ones to download...")
         pdf_ids = pdf_ids - existing_pdfs
 
         logger.info(
