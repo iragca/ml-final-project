@@ -74,6 +74,11 @@ CREATE TABLE IF NOT EXISTS civilservicecommission_pdfs (
     try:
         for pdf_file in tqdm(pdf_files, desc="Processing PDFs"):
             parsed_pdf = parser.parse(pdf_file)
+
+            if parsed_pdf is None:
+                logger.warning(f"Failed to parse {pdf_file.name}. Skipping.")
+                continue
+
             jobId = parsed_pdf[0]
 
             try:

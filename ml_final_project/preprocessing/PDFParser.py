@@ -10,12 +10,16 @@ class PDFParser:
 
     def parse(self, pdf_file):
         try:
-            with pdfplumber.open(pdf_file) as pdf:
-                page_container = []
+            try:
+                with pdfplumber.open(pdf_file) as pdf:
+                    page_container = []
 
-                for page in pdf.pages:
-                    text = page.extract_text()
-                    page_container.extend(text.split("\n"))
+                    for page in pdf.pages:
+                        text = page.extract_text()
+                        page_container.extend(text.split("\n"))
+            except Exception as e:
+                logger.error(f"Failed to open file {pdf_file.name}: {e}")
+                return None
 
             jobId = pdf_file.stem
             LocalRegion = self._extract_local_region(page_container)
