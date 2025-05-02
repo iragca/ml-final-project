@@ -28,10 +28,20 @@ def main():
         )
         logger.info(f"Connecting to DuckDB database at {dbPath}.")
         db = duckdb.connect(dbPath, read_only=True)
+        PDF_SAVE_PATH = RAW_DATA_DIR / "CivilServiceCommission" / "pdfs"
 
-        pdf_ids = db.sql("SELECT action FROM civilservicecommission").pl().unique()
+        pdf_ids = set(
+            db.sql("SELECT action FROM civilservicecommission").pl().unique().to_series()
+        )
+
+        existing_pdfs = PDF_SAVE_PATH.iterdir()
+        existing_pdfs = set([pdf.stem for pdf in existing_pdfs])
+
+        logger.info(f"{len(pdf_ids)} PDF IDs found in the database. Identifying new ones to download...")
+        pdf_ids = pdf_ids - existing_pdfs
+
         logger.info(
-            f"Found {pdf_ids.shape[0]} PDF IDs to download from the database."
+            f"Found {len(pdf_ids)} PDF IDs to download from the database."
         )
 
         with sync_playwright() as pw:
@@ -39,13 +49,8 @@ def main():
             context = browser.new_context(accept_downloads=True)
             page = context.new_page()
 
-            for pdf_id in tqdm(pdf_ids["Action"], desc="Downloading PDFs"):
-                pdf_path = (
-                    RAW_DATA_DIR
-                    / "CivilServiceCommission"
-                    / "pdfs"
-                    / f"{pdf_id}.pdf"
-                )
+            for pdf_id in tqdm(pdf_ids, desc="Downloading PDFs"):
+                pdf_path = PDF_SAVE_PATH / f"{pdf_id}.pdf"
                 if not pdf_path.exists():
 
                     # Download the PDF file
