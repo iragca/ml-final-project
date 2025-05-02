@@ -44,14 +44,20 @@ def main():
             f"Found {len(pdf_ids)} PDF IDs to download from the database."
         )
 
+        if not pdf_ids:
+            logger.info("No new PDF IDs to download. Exiting.")
+            return
+
         with sync_playwright() as pw:
             browser = pw.chromium.launch(headless=False)
             context = browser.new_context(accept_downloads=True)
             page = context.new_page()
 
-            for pdf_id in tqdm(pdf_ids, desc="Downloading PDFs"):
+            pbar = tqdm(total=len(pdf_ids), desc="Downloading PDFs")
+            for pdf_id in pbar:
                 pdf_path = PDF_SAVE_PATH / f"{pdf_id}.pdf"
                 if not pdf_path.exists():
+                    pbar.set_postfix_str(f"Downloading {pdf_id}.pdf")
 
                     # Download the PDF file
                     url = f"https://csc.gov.ph/career/job/{pdf_id}"
@@ -74,7 +80,6 @@ def main():
                     with open(f"{pdf_path}", "wb") as f:
                         f.write(bytes(pdf_data))
 
-                    logger.info(f"Downloaded {pdf_id} to {pdf_path}.")
                     # time.sleep(2)
 
                 else:
