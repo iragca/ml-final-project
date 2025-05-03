@@ -8,6 +8,10 @@ axes.titlesize : large
 axes.labelsize : large
 axes.formatter.use_mathtext : True
 axes.axisbelow: True
+axes.spines.bottom: True
+axes.spines.top: True
+axes.spines.left: True
+axes.spines.right: True
 
 ### Grid
 axes.grid: False
@@ -20,10 +24,9 @@ grid.color: gray
 lines.linewidth : 1.5
 lines.markersize : 8
 hatch.linewidth: 0.25
-
 patch.antialiased   : True
 
-### Ticks
+## Ticks
 xtick.top: True
 xtick.bottom: True
 xtick.major.size: 3.0

@@ -1,7 +1,9 @@
+### Credits
+## https://github.com/mpetroff/accessible-color-cycles
+## https://arxiv.org/abs/2107.02270
+## https://github.com/hosilva/mplstyle
+
 # see https://matplotlib.org/stable/tutorials/introductory/customizing.html
-lines.linewidth: 2
-lines.solid_capstyle: butt
-legend.fancybox: true
 
 ## ***************************************************************************
 ## * Preferred palette
@@ -23,31 +25,28 @@ legend.fancybox: true
 ## soft_black = ‘#333333’
 ## ***************************************************************************
 
-patch.facecolor: gray
-
-
-
+### Colors
 ## https://arxiv.org/abs/2107.02270 - Color source
 ## https://github.com/mpetroff/accessible-color-cycles
 axes.prop_cycle: cycler(color=["#5790fc", "#f89c20", "#e42536", "#964a8b", "#9c9ca1", "#7a21dd"])
 # axes.prop_cycle: cycler(color=["#1845fb", "#ff5e02", "#c91f16", "#c849a9", "#adad7d", "#86c8dd", "#578dff", "#656364"])
 # axes.prop_cycle: cycler(color=["#3f90da", "#ffa90e", "#bd1f01", "#94a4a2", "#832db6", "#a96b59", "#e76300", "#b9ac70", "#717581", "#92dadd"])
 
-axes.facecolor: ffffff  # white
+### Axes
+axes.titlesize : large
+axes.labelsize : medium
+axes.formatter.use_mathtext : True
+axes.axisbelow: True
+axes.spines.bottom: True
 axes.spines.top: True
+axes.spines.left: True
 axes.spines.right: True
-
-axes.axisbelow: true
-axes.grid: False
+axes.facecolor: ffffff  # white
 axes.edgecolor: DDDDDD
 axes.linewidth: 3
-
-axes.titlesize: 12
 axes.titleweight: bold
 axes.titlecolor: 333333
 axes.titlepad: 10.0
-
-axes.labelsize: medium
 axes.labelweight: bold
 axes.labelcolor: 333333
 axes.labelpad: 10.0
@@ -55,6 +54,26 @@ axes.labelpad: 10.0
 xaxis.labellocation: left
 yaxis.labellocation: top
 
+### Grid
+axes.grid: False
+grid.linestyle: -
+grid.linewidth: 1.0
+grid.color: cbcbcb
+
+### Lines
+lines.linewidth : 2
+lines.markersize : 7
+lines.solid_capstyle: butt
+lines.markeredgecolor: auto
+hatch.linewidth: 0.25
+patch.antialiased   : True
+
+### Patches
+patch.edgecolor: f0f0f0
+patch.linewidth: 0.5
+patch.facecolor: gray
+
+### Ticks
 xtick.labelcolor: 333333
 ytick.labelcolor: 333333
 
@@ -64,32 +83,30 @@ ytick.labelsize: small
 ytick.color: DDDDDD
 xtick.color: DDDDDD
 
-patch.edgecolor: f0f0f0
-patch.linewidth: 0.5
-
-lines.markersize: 7
-lines.markeredgecolor: auto
-
-svg.fonttype: path
-
-grid.linestyle: -
-grid.linewidth: 1.0
-grid.color: cbcbcb
-
 xtick.major.size: 0
 xtick.minor.size: 0
 ytick.major.size: 0
 ytick.minor.size: 0
 
+### Saving figures
+path.simplify : True
+svg.fonttype: path
 savefig.edgecolor: f0f0f0
 savefig.facecolor: f0f0f0
 
-figure.figsize: 4.0, 2.5
-#figure.subplot.left: 0.08
-#figure.subplot.right: 0.95
-#figure.subplot.bottom: 0.07
+### Legend
+legend.frameon: True
+legend.fontsize: 10
+legend.edgecolor: black
+legend.fancybox: True
 
-#figure.facecolor: f0f0f0  # grey
+### Figure
+figure.figsize: 4, 2.5
+figure.subplot.left: 0.125
+figure.subplot.bottom: 0.175
+figure.subplot.top: 0.95
+figure.subplot.right: 0.95
+figure.autolayout : False
 figure.facecolor: ffffff  # white
 
 ## ***************************************************************************
@@ -143,14 +160,13 @@ figure.facecolor: ffffff  # white
 ## relative to font.size, using the following values: xx-small, x-small,
 ## small, medium, large, x-large, xx-large, larger, or smaller
 
-
+### Fonts
+mathtext.fontset : cm
 font.family: sans-serif
 font.style: normal
 font.variant: normal
 font.weight: semibold
 font.stretch: normal
-font.size: 12
-
 font.serif: DejaVu Serif, Bitstream Vera Serif, Computer Modern Roman, New Century Schoolbook, Century Schoolbook L, Utopia, ITC Bookman, Bookman, Nimbus Roman No9 L, Times New Roman, Times, Palatino, Charter, serif
 font.sans-serif: Roboto, Helvetica, Arial, sans-serif
 font.cursive: Apple Chancery, Textile, Zapf Chancery, Sand, Script MT, Felipa, Comic Neue, Comic Sans MS, cursive
